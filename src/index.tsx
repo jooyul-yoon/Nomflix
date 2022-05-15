@@ -5,6 +5,10 @@ import { ThemeProvider } from "styled-components";
 import App from "./App";
 import { createGlobalStyle } from "styled-components";
 import { theme } from "./theme";
+import { QueryClient, QueryClientProvider } from "react-query";
+import { ReactQueryDevtools } from "react-query/devtools";
+
+const client = new QueryClient();
 
 const GlobalStyle = createGlobalStyle`
   @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400&display=swap');
@@ -77,12 +81,13 @@ const GlobalStyle = createGlobalStyle`
 const rootNode = document.getElementById("root");
 
 ReactDOM.createRoot(rootNode!).render(
-  <React.StrictMode>
-    <RecoilRoot>
+  <RecoilRoot>
+    <QueryClientProvider client={client}>
       <ThemeProvider theme={theme}>
         <GlobalStyle />
         <App />
+        <ReactQueryDevtools initialIsOpen={true} />
       </ThemeProvider>
-    </RecoilRoot>
-  </React.StrictMode>
+    </QueryClientProvider>
+  </RecoilRoot>
 );
