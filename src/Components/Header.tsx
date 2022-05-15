@@ -128,11 +128,7 @@ function Header() {
   });
 
   return (
-    <Nav
-      variants={navVariants}
-      animate={navAnimation}
-      initial="top"
-    >
+    <Nav variants={navVariants} animate={navAnimation} initial="top">
       <Col>
         <Logo
           xmlns="http://www.w3.org/2000/svg"
@@ -174,7 +170,9 @@ function Header() {
       <Col>
         <Search
           animate={{
-            outline: searchOpen ? "1px whitesmoke solid" : "none",
+            outline: searchOpen
+              ? "1px whitesmoke solid"
+              : "0px whitesmoke solid",
             width: searchOpen ? "250px" : "35px",
           }}
           transition={{ type: "linear" }}
