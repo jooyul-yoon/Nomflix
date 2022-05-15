@@ -4,6 +4,7 @@ import { Link, useMatch } from "react-router-dom";
 import styled from "styled-components";
 
 const Nav = styled(motion.nav)`
+  z-index: 100;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -88,7 +89,7 @@ const Search = styled(motion.span)`
 
 const Input = styled(motion.input)`
   transform-origin: right center;
-  background-color: ${(props) => props.theme.black.standard};
+  background-color: transparent;
   border: none;
   outline: none;
   color: ${(props) => props.theme.white.lighter};
