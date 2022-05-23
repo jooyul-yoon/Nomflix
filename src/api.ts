@@ -29,8 +29,20 @@ export interface IGetMoviesResult {
   total_results: number;
 }
 
-export function getMovies() {
+export function getNowPlayingMovies() {
   return fetch(`${BASE_URL}movie/now_playing?api_key=${API_KEY}`).then(
+    (response) => response.json()
+  );
+}
+
+export function getTopRatedMovies() {
+  return fetch(`${BASE_URL}movie/top_rated?api_key=${API_KEY}`).then(
+    (response) => response.json()
+  );
+}
+
+export function getUpcomingMovies() {
+  return fetch(`${BASE_URL}movie/upcoming?api_key=${API_KEY}`).then(
     (response) => response.json()
   );
 }
