@@ -66,6 +66,7 @@ function Home() {
           </Banner>
           <Slider content="nowPlaying" />
           <Slider content="topRated" />
+          <Slider content="upcoming" />
         </>
       )}
     </Wrapper>
