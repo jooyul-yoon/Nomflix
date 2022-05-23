@@ -1,14 +1,13 @@
 import { useQuery } from "react-query";
 import styled from "styled-components";
-import { getMovies, IGetMoviesResult } from "../api";
+import { getNowPlayingMovies, IGetMoviesResult } from "../api";
 import ReactLoading from "react-loading";
 import { makeImagePath } from "../utils";
+import Slider from "../Components/Slider";
 
 const Wrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  height: 200vh;
   background-color: ${(props) => props.theme.black.standard};
+  height: 200vh;
 `;
 
 const Loader = styled.div`
@@ -18,13 +17,13 @@ const Loader = styled.div`
 const Banner = styled.div<{ url: string }>`
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: flex-end;
   @media screen and (min-width: 1500px) {
     padding: 0 60px;
-    padding-top: 40vh;
+    padding-bottom: 35vh;
   }
   padding: 4%;
-  padding-top: 40vh;
+  padding-bottom: 30vh;
   height: 100vh;
   background-size: cover;
   background-image: linear-gradient(rgba(0, 0, 0, 0.5) 90%, rgba(20, 20, 20, 1)),
@@ -32,20 +31,21 @@ const Banner = styled.div<{ url: string }>`
 `;
 
 const Title = styled.h2`
-  font-size: 60px;
-  margin-bottom: 1.2vw;
-`;
-
-const Overview = styled.p`
   width: 44%;
-  font-size: 1.2vw;
-  margin: 0.5vw 0 0 0;
+  margin-bottom: 1.2vw;
+  color: #fff;
+  font-family: "Helvetica Neue", sans-serif;
+  font-size: 80px;
+  font-weight: bold;
+  letter-spacing: -1px;
+  line-height: 1;
+  font-style: italic;
 `;
 
 function Home() {
   const { isLoading, data } = useQuery<IGetMoviesResult>(
     ["movies", "nowPlaying"],
-    getMovies
+    getNowPlayingMovies
   );
 
   return (
@@ -63,8 +63,9 @@ function Home() {
         <>
           <Banner url={makeImagePath(data?.results[0].backdrop_path || "")}>
             <Title>{data?.results[0].title}</Title>
-            <Overview>{data?.results[0].overview}</Overview>
           </Banner>
+          <Slider content="nowPlaying" />
+          <Slider content="topRated" />
         </>
       )}
     </Wrapper>
