@@ -1,13 +1,12 @@
 import { useQuery } from "react-query";
 import styled from "styled-components";
-import { getNowPlayingMovies, IGetMoviesResult } from "../api";
+import { getGenreData, getNowPlayingMovies, IGetMoviesResult } from "../api";
 import ReactLoading from "react-loading";
 import { makeImagePath } from "../utils";
 import Slider from "../Components/Slider";
 
 const Wrapper = styled.div`
   background-color: ${(props) => props.theme.black.standard};
-  height: 200vh;
 `;
 
 const Loader = styled.div`
@@ -41,11 +40,24 @@ const Title = styled.h2`
   line-height: 1;
   font-style: italic;
 `;
-
+const Description = styled.h4`
+  width: 44%;
+  margin-bottom: 1.2vw;
+  color: #fff;
+  font-family: "Helvetica Neue", sans-serif;
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 1;
+  font-style: italic;
+`;
 function Home() {
   const { isLoading, data } = useQuery<IGetMoviesResult>(
     ["movies", "nowPlaying"],
     getNowPlayingMovies
+  );
+  const { isLoading: isGenreLoding, data: genreData } = useQuery(
+    ["genre", "genre"],
+    getGenreData
   );
 
   return (
@@ -63,10 +75,15 @@ function Home() {
         <>
           <Banner url={makeImagePath(data?.results[0].backdrop_path || "")}>
             <Title>{data?.results[0].title}</Title>
+            <Description>{data?.results[0].overview}</Description>
           </Banner>
-          <Slider content="nowPlaying" />
-          <Slider content="topRated" />
-          <Slider content="upcoming" />
+          {!isGenreLoding && (
+            <>
+              <Slider content="nowPlaying" genres={genreData.genres} />
+              <Slider content="topRated" genres={genreData.genres} />
+              <Slider content="upcoming" genres={genreData.genres} />
+            </>
+          )}
         </>
       )}
     </Wrapper>

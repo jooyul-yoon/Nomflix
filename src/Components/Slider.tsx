@@ -6,7 +6,7 @@ import {
   getUpcomingMovies,
   IGetMoviesResult,
 } from "../api";
-import { makeImagePath } from "../utils";
+import { getGenreById, makeImagePath } from "../utils";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 
@@ -86,11 +86,21 @@ const ItemImage = styled.div<{ bgPhoto: string }>`
 `;
 
 const Info = styled(motion.div)`
-  padding: 20px;
+  padding: 10px 20px;
   background-color: ${(props) => props.theme.black.standard};
   opacity: 0;
-  h4 {
+  color: #fff;
+  h2 {
     font-size: 16px;
+    font-weight: bold;
+  }
+  span {
+    margin-top: 5px;
+    font-size: 12px;
+  }
+  p {
+    margin-top: 5px;
+    font-size: 10px;
   }
 `;
 
@@ -140,7 +150,7 @@ const ItemVariants = {
     zIndex: 100,
     cursor: "pointer",
     y: -50,
-    transition: { delay: 0.5, duration: 0.3, type: "tween" },
+    transition: { delay: 0.3, duration: 0.3, type: "tween" },
   },
   normal: {
     scale: 1,
@@ -153,12 +163,13 @@ const InfoVariants = {
     opacity: 1,
     boxShadow:
       "rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px",
-    transition: { delay: 0.5, duration: 0.1, type: "tween" },
+    transition: { delay: 0.3, duration: 0.1, type: "tween" },
   },
 };
 
 export interface ISlider {
   content: string;
+  genres: { id: number; name: string }[];
 }
 
 function Slider(props: ISlider) {
@@ -176,7 +187,7 @@ function Slider(props: ISlider) {
   const [leaving, setLeaving] = useState(false);
   const [isNext, setIsNext] = useState(true);
   const offset = 6;
-  console.log(data);
+
   const increaseNowIndex = () => {
     setIsNext(true);
     if (leaving) return;
@@ -196,11 +207,11 @@ function Slider(props: ISlider) {
       <RowTitle>
         <a href="/">
           {props.content === "nowPlaying"
-            ? "지금 뜨는 콘텐츠"
+            ? "Now Playing"
             : props.content === "topRated"
-            ? "평점 높은 콘텐츠"
+            ? "Top Rated"
             : props.content === "upcoming"
-            ? "출시 예정 콘텐츠"
+            ? "Upcoming"
             : null}
         </a>
       </RowTitle>
@@ -240,7 +251,14 @@ function Slider(props: ISlider) {
                     bgPhoto={makeImagePath(movie.backdrop_path, "w500")}
                   ></ItemImage>
                   <Info variants={InfoVariants}>
-                    <h4>{movie.title}</h4>
+                    <h2>{movie.title}</h2>
+                    <span>| </span>
+                    {movie.genre_ids.map((gId) => (
+                      <span key={gId}>
+                        {getGenreById(props.genres, gId)} |{" "}
+                      </span>
+                    ))}
+                    <p>{movie.release_date}</p>
                   </Info>
                 </ItemContainer>
               ))}
