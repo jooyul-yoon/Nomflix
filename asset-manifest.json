@@ -1,0 +1,10 @@
+{
+  "files": {
+    "main.js": "/nomflix/static/js/main.1cd3d347.js",
+    "index.html": "/nomflix/index.html",
+    "main.1cd3d347.js.map": "/nomflix/static/js/main.1cd3d347.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.1cd3d347.js"
+  ]
+}
