@@ -142,28 +142,28 @@ function Header() {
         <Items>
           <Item>
             <Link style={{ fontWeight: homeMatch ? 800 : 500 }} to={"/"}>
-              홈{homeMatch && <Circle layoutId="circle" />}
+              Home{homeMatch && <Circle layoutId="circle" />}
             </Link>
           </Item>
           <Item>
             <Link style={{ fontWeight: tvMatch ? 800 : 500 }} to={"/Tv"}>
-              시리즈
+              TV Shows
               {tvMatch && <Circle layoutId="circle" />}
             </Link>
           </Item>
           <Item>
             <Link style={{ cursor: "default" }} to={"/"}>
-              영화
+              Movies
             </Link>
           </Item>
           <Item>
             <Link style={{ cursor: "default" }} to={"/"}>
-              NEW! 요즘 대세 콘텐츠
+              Latest
             </Link>
           </Item>
           <Item>
             <Link style={{ cursor: "default" }} to={"/"}>
-              내가 찜한 콘텐츠
+              My List
             </Link>
           </Item>
         </Items>
