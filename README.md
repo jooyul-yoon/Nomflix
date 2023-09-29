@@ -1,8 +1,6 @@
-# React Masterclass
+# Nomflix (Cloning Netflix)
 
-Learn and dominate the React ecosystem once and for all.
-
-### Using:
+## Using:
 
 - Styled Components
 - Recoil
